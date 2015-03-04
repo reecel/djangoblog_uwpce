@@ -13,7 +13,7 @@
       Posted by {{ post.author_name }} &mdash; {{ post.published_date }}
     </p>
     <div class="post-body">
-      {{ post.text|safe }}
+      {{ post.text }}
     </div>
     <ul class="categories">
       {% for category in post.categories.all %}
