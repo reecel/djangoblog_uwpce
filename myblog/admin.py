@@ -2,6 +2,8 @@ import datetime
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from myblog.models import Post, Category
+from ckeditor.widgets import CKEditorWidget
+from django import forms
 
 
 class CategorizationInline(admin.TabularInline):
@@ -13,8 +15,13 @@ def make_published(modeladmin, request, queryset):
     queryset.update(published_date=now)
 make_published.short_description = "Set publication date for selected posts"
 
+class PostAdminForm(forms.ModelForm):
+    text = forms.CharField(widget=CKEditorWidget())
+    class Meta:
+        model = Post
 
 class PostAdmin(admin.ModelAdmin):
+    form = PostAdminForm
     inlines = [
         CategorizationInline,
     ]
